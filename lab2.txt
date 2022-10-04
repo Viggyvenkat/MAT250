@@ -1,0 +1,300 @@
+%Vignesh Venkat
+%7397
+%Section C2
+%Math 250 MATLAB Assignment #2
+
+rand('seed', 7397)
+
+%Question 1(a)
+A = rmat(3,5), rank(A(:,1:3))
+A =
+     9     0     8     7     9
+     1     8     5     3     8
+     8     2     3     6     7
+A =
+     9     0     8     7     9
+     1     8     5     3     8
+     8     2     3     6     7
+ans =
+     3
+b = rvect(3), R = rref([A b])
+b =
+     5
+     3
+     1
+R =
+    1.0000         0         0    0.6432    0.5243   -0.1459
+         0    1.0000         0    0.2000    0.6000   -0.1000
+         0         0    1.0000    0.1514    0.5351    0.7892
+S = R(:,1:5)
+S =
+    1.0000         0         0    0.6432    0.5243
+         0    1.0000         0    0.2000    0.6000
+         0         0    1.0000    0.1514    0.5351
+S = rref(A);
+S
+S =
+    1.0000         0         0    0.6432    0.5243
+         0    1.0000         0    0.2000    0.6000
+         0         0    1.0000    0.1514    0.5351
+%The pivot columns at Columns 1, 2 & 3
+R 
+R =
+    1.0000         0         0    0.6432    0.5243   -0.1459
+         0    1.0000         0    0.2000    0.6000   -0.1000
+         0         0    1.0000    0.1514    0.5351    0.7892
+A
+A =
+     9     0     8     7     9
+     1     8     5     3     8
+     8     2     3     6     7
+%The rank of R and A is 3 
+rref(A)
+ans =
+    1.0000         0         0    0.6432    0.5243
+         0    1.0000         0    0.2000    0.6000
+         0         0    1.0000    0.1514    0.5351
+%Ax = b has a solution because it is consistent, has a pivot in every
+%column and the free variables are also unnecessary values so, each of the basic variables will have solutions
+%Question 1(b)
+c = R(:,6)
+c =
+   -0.1459
+   -0.1000
+    0.7892
+x = [c; 0; 0]
+x =
+   -0.1459
+   -0.1000
+    0.7892
+         0
+         0
+A*x - b
+ans =
+   1.0e-15 *
+         0
+         0
+    0.2220
+S * x - c 
+ans =
+     0
+     0
+     0
+% Because S is the row reduced echelon form of A, Sx - c = Ax - b
+%Question 1(c)
+u = [-S(:,4); 1; 0], v = [-S(:,5); 0 ; 1]
+u =
+   -0.6432
+   -0.2000
+   -0.1514
+    1.0000
+         0
+v =
+   -0.5243
+   -0.6000
+   -0.5351
+         0
+    1.0000
+S*u, A*u, S*v, A*v
+ans =
+     0
+     0
+     0
+ans =
+     0
+     0
+     0
+ans =
+     0
+     0
+     0
+ans =
+     0
+     0
+     0
+s = rand(1), t = rand(1), y = s*u + t*v
+s =
+    0.2660
+t =
+    0.5787
+y =
+   -0.4745
+   -0.4004
+   -0.3499
+    0.2660
+    0.5787
+%Since the solution for the basic variables is based upon the free variables, the solution for Ax = 0 will be the free variables multiplied by another vector
+%A * y = 0 as A(s*u) = s(A*u) -> where Au = 0 so s(A*u) = 0
+ %-> Ay = 0
+%Question 1(d)
+u1 = rvect(3), u2 = rvect(3), u3 = rvect(3), u4 = rvect(3)
+u1 =
+     9
+     3
+     6
+u2 =
+     6
+     6
+     1
+u3 =
+     1
+     4
+     0
+u4 =
+     5
+     9
+     9
+A = [u1 u2 u3], rref(A)
+A =
+     9     6     1
+     3     6     4
+     6     1     0
+ans =
+     1     0     0
+     0     1     0
+     0     0     1
+% A has no free variables 
+% The set is linearly independent since every coloumn is a pivot coloumn
+% Question 2(b)
+B = [u1 u2 u3 u4], rref(B)
+B =
+     9     6     1     5
+     3     6     4     9
+     6     1     0     9
+ans =
+    1.0000         0         0    2.0133
+         0    1.0000         0   -3.0800
+         0         0    1.0000    5.3600
+% There is one free variable, x4 
+% The set is linearly dependent as not all coloumns are pivot coloumns 
+%Question 2(c)
+v = rand(1)*u1 + rand(1)*u2
+v =
+    4.7494
+    3.2520
+    1.9146
+
+mu = [u1 u2 v]
+mu =
+    9.0000    6.0000    4.7494
+    3.0000    6.0000    3.2520
+    6.0000    1.0000    1.9146
+rref(mu)
+ans =
+    1.0000         0    0.2496
+         0    1.0000    0.4172
+         0         0         0
+%the set is linearly dependent because v is a combination of the other 2 vectors u1 u2, so this causes there to be other solutions other than u1 = u2 = v = 0
+%Question 3
+A = rmat(2,3), B = rmat(3,4), C = rmat(4,3), v = rvect(4)
+A =
+     1     1     9
+     8     4     3
+A =
+     1     1     9
+     8     4     3
+A =
+     9     3     7     9
+     7     0     7     5
+     8     3     2     3
+B =
+     9     3     7     9
+     7     0     7     5
+     8     3     2     3
+A =
+     3     8     4
+     4     5     5
+     4     4     3
+     7     8     8
+C =
+     3     8     4
+     4     5     5
+     4     4     3
+     7     8     8
+v =
+     1
+     1
+     6
+     2
+A*b
+ans =
+    17
+    55
+u = B*v, A*u, D = A*B, D*v
+u =
+    72
+    59
+    29
+ans =
+   392
+   899
+D =
+    88    30    32    41
+   124    33    90   101
+ans =
+   392
+   899
+%Question 3(b)
+A = [0 1; 0 0], B = [0 0; 1 0], C = [0 1; 1 0]
+A =
+     0     1
+     0     0
+B =
+     0     0
+     1     0
+C =
+     0     1
+     1     0
+
+A * B == B * A
+ans =
+  2×2 <a href="matlab:helpPopup logical" style="font-weight:bold">logical</a> array
+   0   1
+   1   0
+A * B
+ans =
+     1     0
+     0     0
+B * A
+ans =
+     0     0
+     0     1
+(A + B)^2
+ans =
+     1     0
+     0     1
+A^2 + 2 * A * B + B^2
+ans =
+     2     0
+     0     0
+%AB does not equal BA and (A+B)^2 does not equal A^2 + 2AB + B^2
+A^2
+ans =
+     0     0
+     0     0
+%A^2 = A * A in integers, however that does not hold true for matrices
+A*C
+ans =
+     1     0
+     0     0
+A*B
+ans =
+     1     0
+     0     0
+%If A, B, C were numbers A * B = A* C -> B = C but we know with matrices that B does not necessarily equal C
+%Question 4
+A = [0 1 1 0; 1 0 0 1; 1 0 0 0; 0 1 0 0]
+A =
+     0     1     1     0
+     1     0     0     1
+     1     0     0     0
+     0     1     0     0
+% Person five cannot talk to anyone in one step
+%Person 1 can send a direct message, but could also send a message to person 3 to send a message to send a message to person 4. Person 1 can send a message to person 2 to send a message to person 3 to send a message to person 4. 
+B = A + A^2 + A^3 + A^4
+B =
+     7     4     3     4
+     4     7     4     3
+     3     4     3     1
+     4     3     1     3
+%Person 3 can send person 4 at most in 1 stage
